@@ -2,12 +2,12 @@ import React from 'react';
 import RecordBRC from './RecordBRC';
 import RecordBRR from './RecordBRR';
 
-const RecordView = () => {
+const RecordView = ({cards, rewards}) => {
   return (
     <div>
       <h2>Record View</h2>
-      <RecordBRC />
-      <RecordBRR />
+      <RecordBRC cards={cards}/>
+      <RecordBRR rewards={rewards}/>
     </div>
   )
 }

@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const RecordBRR = () => {
+const RecordBRR = ({rewards}) => {
   return (
     <div>
-      <h3>Record BRRewards</h3>
+      <h3>Record BRRewards:</h3>
+      {rewards.sort((a,b)=>(b.time-a.time)).map(
+        (ele)=>{
+          return(
+            <h5>{ele.name}</h5>
+          )
+        }
+      )}
     </div>
   )
 };
