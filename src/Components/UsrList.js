@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 const UsrList = ({addEntry}) => {
   const [usrs, addUsr] = useState([]);
   const [curName, editName] = useState('');
@@ -13,11 +12,12 @@ const UsrList = ({addEntry}) => {
     curName.trim().length ? addUsr([...usrs, curName]): addUsr([...usrs]);
   }
   useEffect(() => {
+    addEntry(curName)
     editName('')
   },[usrs])
 
   return (
-    <div>
+    <div className="">
       <h3>UsrList</h3>
       {usrs.map((ele,index) => {
         return <div onClick={(e)=>{addEntry(ele)}} key={`${ele}${Date.now()}-${index}`}>{ele}</div>

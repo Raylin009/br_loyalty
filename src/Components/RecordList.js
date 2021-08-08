@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UsrList from './UsrList';
-import './style.css'
+import './recordList.css';
+
 const RecordBRC = ({type}) => {
   const [entries, addEntries] = useState([]);
   const handleEntries = (name) => {

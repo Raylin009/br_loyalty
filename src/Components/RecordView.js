@@ -1,5 +1,6 @@
 import React from 'react';
 import RecordBRC from './RecordList';
+import './recordView.css';
 
 const RecordView = () => {
   return (
@@ -10,5 +11,4 @@ const RecordView = () => {
     </div>
   )
 }
-
 export default RecordView;
