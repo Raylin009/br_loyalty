@@ -10,12 +10,12 @@ const UsrList = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    addUsr([...usrs, curName])
+    curName.trim().length ? addUsr([...usrs, curName]): addUsr([...usrs]);
   }
   useEffect(() => {
     editName('')
   },[usrs])
-  
+
   return (
     <div>
       <h3>UsrList</h3>
