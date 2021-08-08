@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const UsrList = ({newEntryByName}) => {
+const UsrList = ({addEntry}) => {
   const [usrs, addUsr] = useState(['Krishna', 'Aria', 'Ray', 'Lucy']);
   const [curName, editName] = useState('');
   const handleChange = (e) => {
@@ -20,7 +20,7 @@ const UsrList = ({newEntryByName}) => {
     <div>
       <h3>UsrList</h3>
       {usrs.map((ele,index) => {
-        return <div onClick={(e)=>{newEntryByName(ele)("CARD")}}key={`${ele}${Date.now()}-${index}`}>{ele}</div>
+        return <div onClick={(e)=>{addEntry(ele)}} key={`${ele}${Date.now()}-${index}`}>{ele}</div>
       })}
       <form>
         <input type='text' value={curName} onChange={(e) => {handleChange(e)}}></input>

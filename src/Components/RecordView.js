@@ -6,8 +6,8 @@ const RecordView = ({view, cards, rewards}) => {
   return (
     <div>
       <h2>Record View</h2>
-      <RecordBRC cards={cards}/>
-      <RecordBRR rewards={rewards}/>
+      <RecordBRC type="CARD"/>
+      <RecordBRC type="REWARD"/>
     </div>
   )
 }

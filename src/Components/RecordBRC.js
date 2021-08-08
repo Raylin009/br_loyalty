@@ -1,17 +1,29 @@
-import React from 'react';
-
-const RecordBRC = ({cards}) => {
+import React, { useState } from 'react';
+import UsrList from './UsrList';
+const RecordBRC = ({type}) => {
+  const [entries, addEntries] = useState([]);
+  const handleEntries = (name) => {
+    let entry = {
+      name,
+      time: Date.now(),
+      type,
+    }
+    addEntries([...entries, entry])
+  }
   return (
     <div>
-      <h3>Record BRC:</h3>
+      <h3>{type}:</h3>
       
       {
-      cards.sort((a,b)=>(b.time-a.time)).map((ele)=>{
-        return <h5>{ele.name}</h5>
-      })
-      
+        entries.length ?
+          entries
+            .sort((a,b)=>(b.time-a.time))
+            .map((ele,i)=>{ 
+              return <h5 key={Date.now()+i}>{ele.name}</h5>
+            })
+          : <h5>who's gonna be the first</h5>
       }
-      {console.log(cards.sort((a,b)=>(b.time-a.time)))}
+      <UsrList addEntry={handleEntries}/>
     </div>
   )
 };
