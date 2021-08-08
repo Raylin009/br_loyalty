@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import UsrList from './UsrList';
+import './style.css'
 const RecordBRC = ({type}) => {
   const [entries, addEntries] = useState([]);
   const handleEntries = (name) => {
@@ -13,7 +14,6 @@ const RecordBRC = ({type}) => {
   return (
     <div>
       <h3>{type}:</h3>
-      
       {
         entries.length ?
           entries

@@ -1,8 +1,7 @@
 import React from 'react';
-import RecordBRC from './RecordBRC';
-import RecordBRR from './RecordBRR';
+import RecordBRC from './RecordList';
 
-const RecordView = ({view, cards, rewards}) => {
+const RecordView = () => {
   return (
     <div>
       <h2>Record View</h2>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const UsrList = ({addEntry}) => {
-  const [usrs, addUsr] = useState(['Krishna', 'Aria', 'Ray', 'Lucy']);
+  const [usrs, addUsr] = useState([]);
   const [curName, editName] = useState('');
   const handleChange = (e) => {
     const str = e.target.value
