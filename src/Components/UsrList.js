@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const UsrList = () => {
+  const [usrs, addUsr] = useState(['Krishna', 'Krishna', 'Aria', 'Ray', 'Lucy']);
+  const [curName, editName] = useState('');
+  const handleChange = (e) => {
+    const str = e.target.value
+    e.preventDefault()
+    editName(str)
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    addUsr([...usrs, curName])
+  }
+  useEffect(() => {
+    editName('')
+  },[usrs])
+  
   return (
     <div>
       <h3>UsrList</h3>
+      {usrs.map((ele) => {
+        return <div>{ele}</div>
+      })}
+      <form>
+        <input type='text' value={curName} onChange={(e) => {handleChange(e)}}></input>
+        <button onClick={(e)=>handleSubmit(e)}>Add</button>
+      </form>
     </div>
   )
 };
