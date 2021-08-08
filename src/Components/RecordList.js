@@ -13,7 +13,7 @@ const RecordBRC = ({type}) => {
     addEntries([...entries, entry])
   }
   return (
-    <div>
+    <div className="recordlist">
       <h3>{type}:</h3>
       {
         entries.length ?

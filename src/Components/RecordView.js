@@ -4,8 +4,7 @@ import './recordView.css';
 
 const RecordView = () => {
   return (
-    <div>
-      <h2>Record View</h2>
+    <div className="recordview">
       <RecordBRC type="CARD"/>
       <RecordBRC type="REWARD"/>
     </div>
