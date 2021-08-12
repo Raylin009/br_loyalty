@@ -35,11 +35,19 @@ const getEmployeeName = (employee_id, cb) => {
   })
 };
 
-getEmployeeName(3277923, console.log)
+// getEmployeeName(3277923, console.log)
 
-const getEmployeeId = (employee_name) => {
-
+const getEmployeeId = (employee_name, cb) => {
+  mysql.query(`SELECT id FROM employee_name WHERE name='${employee_name}'`, (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
+
+getEmployeeId('Ray', console.log)
 
 
 const getCardByDate = (date) => {
