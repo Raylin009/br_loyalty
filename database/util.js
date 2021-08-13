@@ -1,16 +1,39 @@
 const mysql = require('./db_mysql.js');
 
-const addReward = (employee_id, time) => {
-  
+const addReward = (employee_id, time, cb) => {
+  mysql.query(`INSERT INTO rewards (employee_id) VALUES (${employee_id});`, (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res)
+    }
+  })
+};
+// addReward(3277923, null, console.log)
+
+const addCard = (employee_id, time, cb) => {
+  mysql.query(`INSERT INTO cards (employee_id) VALUES (${employee_id});`, (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res)
+    }
+  })
 };
 
-const addCard = (employee_id, time) => {
+// addCard(3277923, null, console.log)
 
+const addEmployee = (id, name, cb) => {
+  mysql.query(`INSERT IGNORE INTO employee_name (id, name) VALUES (?, ?);`,[id, name], (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
+// addEmployee('23', "life", console.log)
 
-const addEmployee = (employee_id, employee_name) => {
-
-};
 
 const rmReward = (reward_id) => {
 
@@ -47,12 +70,19 @@ const getEmployeeId = (employee_name, cb) => {
   })
 };
 
-getEmployeeId('Ray', console.log)
+// getEmployeeId('Ray', console.log) 
 
-
-const getCardByDate = (date) => {
-
+const getCardByDate = (dateStr, cb) => {
+  const dateStrRule = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
+  if(dateStrRule.test(dateStr)){
+    mysql.query(`SELECT * FROM cards WHERE ts BETWEEN '${dateStr} 00:00:00' AND '${dateStr} 23:59:59'`, (err, res, fields) => {
+      err ? cb(err) : cb(res);
+    })
+  }else{
+    cb(Error('dateStr have to be in "yyyy-mm-dd" formate'))
+  }
 };
+getCardByDate('2021-08-130', console.log)
 
 const getCardByEmployee = (employee_id) => {
 

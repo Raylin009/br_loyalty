@@ -4,6 +4,7 @@
   "description": "Digital loyalty tracker",
   "main": "index.js",
   "scripts": {
+    "schema": "mysql -u root < database/schema.sql",
     "start": "webpack server",
     "build": "webpack --watch",
     "server-dev": "nodemon server/index.js",
