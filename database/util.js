@@ -1,6 +1,6 @@
 const mysql = require('./db_mysql.js');
 
-const addReward = (employee_id, time, cb) => {
+module.exports.addReward = (employee_id, time, cb) => {
   mysql.query(`INSERT INTO rewards (employee_id) VALUES (${employee_id});`, (err, res, fields) => {
     if(err){
       cb(err);
@@ -11,7 +11,7 @@ const addReward = (employee_id, time, cb) => {
 };
 // addReward(3277923, null, console.log)
 
-const addCard = (employee_id, time, cb) => {
+module.exports.addCard = (employee_id, time, cb) => {
   mysql.query(`INSERT INTO cards (employee_id) VALUES (${employee_id});`, (err, res, fields) => {
     if(err){
       cb(err);
@@ -23,7 +23,7 @@ const addCard = (employee_id, time, cb) => {
 
 // addCard(3277923, null, console.log)
 
-const addEmployee = (id, name, cb) => {
+module.exports.addEmployee = (id, name, cb) => {
   mysql.query(`INSERT IGNORE INTO employee_name (id, name) VALUES (?, ?);`,[id, name], (err, res, fields) => {
     if(err){
       cb(err);
@@ -35,7 +35,7 @@ const addEmployee = (id, name, cb) => {
 // addEmployee('23', "life", console.log)
 
 
-const rmReward = (reward_id, cb) => {
+module.exports.rmReward = (reward_id, cb) => {
   mysql.query(`DELETE FROM rewards WHERE (id=?);`,[reward_id], (err, res, fields) => {
     if(err){
       cb(err);
@@ -46,7 +46,7 @@ const rmReward = (reward_id, cb) => {
 };
 // rmReward(2,console.log)
 
-const rmCard = (card_id, cb) => {
+module.exports.rmCard = (card_id, cb) => {
   mysql.query(`DELETE FROM cards WHERE (id=?);`,[card_id], (err, res, fields) => {
     if(err){
       cb(err);
@@ -56,9 +56,9 @@ const rmCard = (card_id, cb) => {
   })
 };
 
-rmCard(2, console.log);
+// rmCard(2, console.log);
 
-const rmEmployeeByName = (str, cb) => {
+module.exports.rmEmployeeByName = (str, cb) => {
   mysql.query(`DELETE FROM employee_name WHERE (name=?);`,[str], (err, res, fields) => {
     if(err){
       cb(err);
@@ -70,7 +70,7 @@ const rmEmployeeByName = (str, cb) => {
 
 // rmEmployeeByName('HAHA',console.log)
 
-const rmEmployeeById = (id, cb) => {
+module.exports.rmEmployeeById = (id, cb) => {
   mysql.query(`DELETE FROM employee_name WHERE (id=?);`,[id], (err, res, fields) => {
     if(err){
       cb(err);
@@ -82,7 +82,7 @@ const rmEmployeeById = (id, cb) => {
 
 // rmEmployeeById(23,console.log)
 
-const getEmployeeName = (employee_id, cb) => {
+module.exports.getEmployeeName = (employee_id, cb) => {
   mysql.query(`SELECT name FROM employee_name WHERE id=${employee_id};`, (err, res, fields) => {
     if(err){
       cb(err);
@@ -93,9 +93,24 @@ const getEmployeeName = (employee_id, cb) => {
   })
 };
 
+module.exports.getEmployeeNameP = async(employee_id) => {
+  return new Promise((res, rej) => {
+    mysql.query(`SELECT name FROM employee_name WHERE id=${employee_id};`, (err, resolt, fields) => {
+      if(err){
+        rej(err)
+      }else{
+        res(resolt)
+      }
+    })
+  })
+}
+
+
+
+
 // getEmployeeName(3277923, console.log)
 
-const getEmployeeId = (employee_name, cb) => {
+module.exports.getEmployeeId = (employee_name, cb) => {
   mysql.query(`SELECT id FROM employee_name WHERE name='${employee_name}'`, (err, res, fields) => {
     if(err){
       cb(err);
@@ -107,7 +122,7 @@ const getEmployeeId = (employee_name, cb) => {
 
 // getEmployeeId('Ray', console.log) 
 
-const getCardByDate = (dateStr, cb) => {
+module.exports.getCardByDate = (dateStr, cb) => {
   const dateStrRule = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
   if(dateStrRule.test(dateStr)){
     mysql.query(`SELECT * FROM cards WHERE ts BETWEEN '${dateStr} 00:00:00' AND '${dateStr} 23:59:59'`, (err, res, fields) => {
@@ -119,7 +134,7 @@ const getCardByDate = (dateStr, cb) => {
 };
 // getCardByDate('2021-08-130', console.log)
 
-const getCardsByEmployee = (employee_id, cb) => {
+module.exports.getCardsByEmployee = (employee_id, cb) => {
   mysql.query(`SELECT * FROM cards WHERE employee_id='${employee_id}'`, (err, res, fields) => {
     if(err){
       cb(err);
@@ -131,7 +146,7 @@ const getCardsByEmployee = (employee_id, cb) => {
 
 // getCardsByEmployee(327793, console.log)
 
-const getRewardsByEmployee = (employee_id, cb) => {
+module.exports.getRewardsByEmployee = (employee_id, cb) => {
   mysql.query(`SELECT * FROM rewards WHERE employee_id='${employee_id}'`, (err, res, fields) => {
     if(err){
       cb(err);
