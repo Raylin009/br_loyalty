@@ -35,12 +35,25 @@ const addEmployee = (id, name, cb) => {
 // addEmployee('23', "life", console.log)
 
 
-const rmReward = (reward_id) => {
-
+const rmReward = (reward_id, cb) => {
+  mysql.query(`DELETE FROM rewards WHERE (id=?);`,[reward_id], (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
+rmReward(2,console.log)
 
-const rmCard = (card_id) => {
-
+const rmCard = (card_id, cb) => {
+  mysql.query(`DELETE FROM cards WHERE (id=?);`,[reward_id], (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
 
 const rmEmployee = (employee_id) => {
