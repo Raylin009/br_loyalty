@@ -44,10 +44,10 @@ const rmReward = (reward_id, cb) => {
     }
   })
 };
-rmReward(2,console.log)
+// rmReward(2,console.log)
 
 const rmCard = (card_id, cb) => {
-  mysql.query(`DELETE FROM cards WHERE (id=?);`,[reward_id], (err, res, fields) => {
+  mysql.query(`DELETE FROM cards WHERE (id=?);`,[card_id], (err, res, fields) => {
     if(err){
       cb(err);
     }else{
@@ -56,9 +56,31 @@ const rmCard = (card_id, cb) => {
   })
 };
 
-const rmEmployee = (employee_id) => {
+rmCard(2, console.log);
 
+const rmEmployeeByName = (str, cb) => {
+  mysql.query(`DELETE FROM employee_name WHERE (name=?);`,[str], (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
+
+// rmEmployeeByName('HAHA',console.log)
+
+const rmEmployeeById = (id, cb) => {
+  mysql.query(`DELETE FROM employee_name WHERE (id=?);`,[id], (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
+};
+
+// rmEmployeeById(23,console.log)
 
 const getEmployeeName = (employee_id, cb) => {
   mysql.query(`SELECT name FROM employee_name WHERE id=${employee_id};`, (err, res, fields) => {
