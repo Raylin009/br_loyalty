@@ -82,8 +82,28 @@ const getCardByDate = (dateStr, cb) => {
     cb(Error('dateStr have to be in "yyyy-mm-dd" formate'))
   }
 };
-getCardByDate('2021-08-130', console.log)
+// getCardByDate('2021-08-130', console.log)
 
-const getCardByEmployee = (employee_id) => {
-
+const getCardsByEmployee = (employee_id, cb) => {
+  mysql.query(`SELECT * FROM cards WHERE employee_id='${employee_id}'`, (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
 };
+
+// getCardsByEmployee(327793, console.log)
+
+const getRewardsByEmployee = (employee_id, cb) => {
+  mysql.query(`SELECT * FROM rewards WHERE employee_id='${employee_id}'`, (err, res, fields) => {
+    if(err){
+      cb(err);
+    }else{
+      cb(res);
+    }
+  })
+};
+
+// getRewardsByEmployee(327923, console.log)
