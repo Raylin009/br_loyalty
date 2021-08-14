@@ -82,18 +82,7 @@ module.exports.rmEmployeeById = (id, cb) => {
 
 // rmEmployeeById(23,console.log)
 
-module.exports.getEmployeeName = (employee_id, cb) => {
-  mysql.query(`SELECT name FROM employee_name WHERE id=${employee_id};`, (err, res, fields) => {
-    if(err){
-      cb(err);
-    }else{
-      cb(res)
-    }
-    // console.log(JSON.parse(JSON.stringify(res)))
-  })
-};
-
-module.exports.getEmployeeNameP = async(employee_id) => {
+module.exports.getEmployeeName = async(employee_id) => {
   return new Promise((res, rej) => {
     mysql.query(`SELECT name FROM employee_name WHERE id=${employee_id};`, (err, resolt, fields) => {
       if(err){
@@ -104,8 +93,6 @@ module.exports.getEmployeeNameP = async(employee_id) => {
     })
   })
 }
-
-
 
 
 // getEmployeeName(3277923, console.log)
@@ -122,25 +109,49 @@ module.exports.getEmployeeId = (employee_name, cb) => {
 
 // getEmployeeId('Ray', console.log) 
 
-module.exports.getCardByDate = (dateStr, cb) => {
+module.exports.getCardByDate = async(dateStr) => {
   const dateStrRule = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
   if(dateStrRule.test(dateStr)){
-    mysql.query(`SELECT * FROM cards WHERE ts BETWEEN '${dateStr} 00:00:00' AND '${dateStr} 23:59:59'`, (err, res, fields) => {
-      err ? cb(err) : cb(res);
+    return new Promise((res, rej) => {
+      mysql.query(`SELECT * FROM cards WHERE ts BETWEEN '${dateStr} 00:00:00' AND '${dateStr} 23:59:59'`, (err, data, fields) => {
+        if(err){
+          rej(err)
+        }else{
+          res(data)
+        }
+      })
     })
   }else{
-    cb(Error('dateStr have to be in "yyyy-mm-dd" formate'))
+    return Promise.reject('dateStr have to be in "yyyy-mm-dd" formate')
   }
 };
-// getCardByDate('2021-08-130', console.log)
+// getCardByDate('2021-08-13', console.log)
+module.exports.getRewardsByDate = async(dateStr) => {
+  const dateStrRule = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
+  if(dateStrRule.test(dateStr)){
+    return new Promise((res, rej) => {
+      mysql.query(`SELECT * FROM rewards WHERE ts BETWEEN '${dateStr} 00:00:00' AND '${dateStr} 23:59:59'`, (err, data, fields) => {
+        if(err){
+          rej(err)
+        }else{
+          res(data)
+        }
+      })
+    })
+  }else{
+    return Promise.reject('dateStr have to be in "yyyy-mm-dd" formate')
+  }
+};
 
-module.exports.getCardsByEmployee = (employee_id, cb) => {
-  mysql.query(`SELECT * FROM cards WHERE employee_id='${employee_id}'`, (err, res, fields) => {
-    if(err){
-      cb(err);
-    }else{
-      cb(res);
-    }
+module.exports.getCardsByEmployee = async (employee_id) => {
+  return new Promise((res, rej) => {
+    mysql.query(`SELECT * FROM cards WHERE employee_id='${employee_id}'`, (err, data, fields) => {
+      if(err){
+        rej(err);
+      }else{
+        res(data);
+      };
+    })
   })
 };
 
